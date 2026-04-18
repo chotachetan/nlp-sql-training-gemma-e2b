@@ -1,0 +1,32 @@
+# Gemma 4 E2B SFT config for M4 Max 64GB
+# Full LoRA (no quantization) — 64GB unified memory has plenty of headroom
+
+model: ~/models/gemma-4-e2b-it-mlx-bf16
+
+train: true
+data: ./data
+
+# LoRA settings
+# lora_layers=18 covers all transformer layers in E2B
+lora_layers: 18
+
+# Training hyperparameters
+batch_size: 6          # 64GB allows batch 6 at bf16 for Gemma 4 E2B
+                       # (slightly less than Gemma 2 2B due to larger PLE embeddings)
+iters: 20000
+val_batches: 50
+steps_per_report: 100
+steps_per_eval: 500
+save_every: 1000
+adapter_path: ./adapters/sft
+
+# Optimizer
+learning_rate: 2e-4
+lr_schedule:
+  name: cosine_decay
+  warmup: 200
+
+max_seq_length: 1024
+
+# Gradient checkpointing — optional at 64GB, but good practice
+grad_checkpoint: false
