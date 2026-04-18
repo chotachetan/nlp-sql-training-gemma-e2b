@@ -12,8 +12,8 @@ On a 64 GB M4 Max with Gemma 4 E2B:
 
 | What | Cloud A100 (QLoRA) | M4 Max 64GB (MLX LoRA) |
 |---|---|---|
-| Gemma 4 E2B full LoRA | Tight at 40GB | ✅ ~12 GB used |
-| Gemma 4 E2B QLoRA (4-bit) | ✅ Fits easily | ✅ ~6 GB used |
+| Gemma 4 E2B full LoRA | Tight at 40GB | ~12 GB used |
+| Gemma 4 E2B QLoRA (4-bit) | Fits easily | ~6 GB used |
 | Training speed | ~700–900 tok/sec | ~350–550 tok/sec |
 | DPO inference (candidate gen) | Fast | ~180–250 tok/sec |
 | Cost | ~$2–4/hr | $0 |
@@ -271,7 +271,7 @@ def load_spider_train() -> list[dict]:
 def load_bird_train(path: str) -> list[dict]:
     p = Path(path)
     if not p.exists():
-        print(f"  ⚠️  BIRD not found at {path} — download from https://bird-bench.github.io/")
+        print(f"   BIRD not found at {path} — download from https://bird-bench.github.io/")
         return []
     with open(p) as f:
         data = json.load(f)
@@ -312,7 +312,7 @@ def main():
     write_jsonl(valid_set, OUTPUT_DIR / "valid.jsonl")
     write_jsonl(valid_set[:200], OUTPUT_DIR / "test.jsonl")
 
-    print(f"\n✅ Done!")
+    print(f"\n Done!")
     print(f"   Train : {len(train_set):,} → data/train.jsonl")
     print(f"   Valid : {len(valid_set):,} → data/valid.jsonl")
 
@@ -636,7 +636,7 @@ python -m mlx_lm.fuse \
     --adapter-path ./adapters/dpo \
     --save-path ~/models/gemma-4-e2b-text2sql-FINAL
 
-echo "✅ Final model saved to ~/models/gemma-4-e2b-text2sql-FINAL"
+echo " Final model saved to ~/models/gemma-4-e2b-text2sql-FINAL"
 ```
 
 ---
@@ -838,7 +838,7 @@ Question: What is the total sales amount by region for Q1 2024?"
 | GGUF conversion + quantization | ~12 min | ~12 GB |
 | **Total** | **~11–15 hrs** | **~32 GB peak** |
 
-> 💡 Peak RAM is ~32 GB during SFT — well within your 64 GB. You can keep
+> Peak RAM is ~32 GB during SFT — well within your 64 GB. You can keep
 > a browser, Activity Monitor, and VS Code open throughout.
 
 ---
